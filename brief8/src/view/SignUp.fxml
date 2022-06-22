@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="212.0" style="-fx-background-color: #00838e;">
+         <children>
+            <ImageView fitHeight="129.0" fitWidth="163.0" layoutX="42.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@to-do-list.png" />
+               </image>
+            </ImageView>
+            <Text fill="#ffa726" layoutX="14.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;I think that's the single best piece of advice: constantly think about how you could be doing things better and questioning yourself.&quot;" wrappingWidth="215.33333333333337">
+               <font>
+                  <Font name="Monospaced Bold Italic" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#ffa726" layoutX="140.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elon Musk" wrappingWidth="82.0423583984375">
+               <font>
+                  <Font name="Monospaced Bold Italic" size="13.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="389.0">
+         <children>
+            <Label layoutX="45.0" layoutY="109.0" text="First Name :" textFill="#00838e">
+               <font>
+                  <Font name="Monospaced Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="152.0" text="Last Name  :" textFill="#00838e">
+               <font>
+                  <Font name="Monospaced Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="192.0" text="Username   :" textFill="#00838e">
+               <font>
+                  <Font name="Monospaced Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="232.0" text="Password   :" textFill="#00838e">
+               <font>
+                  <Font name="Monospaced Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfFirstName" layoutX="161.0" layoutY="104.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your first_name" style="-fx-border-color: #00838e;" />
+            <TextField fx:id="tfSecondName" layoutX="161.0" layoutY="147.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your last_name" style="-fx-border-color: #00838e;" />
+            <TextField fx:id="tfUsername" layoutX="161.0" layoutY="187.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your username" style="-fx-border-color: #00838e;" />
+            <Button fx:id="btnSignUp" layoutX="100.0" layoutY="276.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="155.0" style="-fx-background-color: #00838e; -fx-cursor: hand;" text="Sign Up" textFill="#ffa726">
+               <font>
+                  <Font name="Monospaced Bold Italic" size="20.0" />
+               </font>
+            </Button>
+            <Label layoutX="78.0" layoutY="342.0" text="Already a member?">
+               <font>
+                  <Font name="Monospaced Regular" size="13.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnLogIn" layoutX="204.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Log In" textFill="#ffa726">
+               <font>
+                  <Font name="Monospaced Bold Italic" size="15.0" />
+               </font>
+            </Button>
+            <PasswordField fx:id="pfPassword" layoutX="161.0" layoutY="228.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter your password" style="-fx-border-color: #00838e;" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
