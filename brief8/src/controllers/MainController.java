@@ -23,8 +23,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.DaoImp;
-import model.Tasks;
-import model.Users;
+import service.Tasks;
+import service.Users;
 
 public class MainController {
 

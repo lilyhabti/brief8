@@ -19,8 +19,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.DaoImp;
-import model.Users;
 import service.UserService;
+import service.Users;
 
 public class LoginController {
 

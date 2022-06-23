@@ -15,7 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.DaoImp;
-import model.Tasks;
+import service.Tasks;
 
 public class UpdateController {
 

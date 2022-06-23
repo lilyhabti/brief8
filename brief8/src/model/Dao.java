@@ -3,6 +3,8 @@ package model;
 import java.sql.ResultSet;
 
 import javafx.collections.ObservableList;
+import service.Tasks;
+import service.Users;
 
 public interface Dao {
 	

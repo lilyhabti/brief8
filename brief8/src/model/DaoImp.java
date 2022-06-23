@@ -10,7 +10,9 @@ import database.DBconnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import service.Tasks;
 import service.UserService;
+import service.Users;
 
 public class DaoImp implements Dao {
 	
