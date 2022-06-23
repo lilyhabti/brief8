@@ -10,6 +10,7 @@ import database.DBconnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import service.UserService;
 
 public class DaoImp implements Dao {
 	
@@ -65,8 +66,9 @@ public class DaoImp implements Dao {
 	}
 
 	@Override
-	public ResultSet getUser(Users user) {
+	public Users getUser(Users user) {
 		ResultSet rs = null;
+		Users user1 = null;
 		
 		if(!user.getUsername().equals("") || !user.getPassword().equals("")) {
 			String query = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -77,6 +79,12 @@ public class DaoImp implements Dao {
 				ps.setString(2,user.getPassword());
 				
 				rs = ps.executeQuery();
+				
+			    while(rs.next()) {
+			    	user1 = new Users();
+			    	user1.setId(rs.getInt("userid"));
+			    
+			    }
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -86,19 +94,22 @@ public class DaoImp implements Dao {
 			alert.setContentText("Please Enter your credentials!");
 			alert.show();
 		}
-		return rs;
+		return user1;
 	}
 
 	@Override
 	public ObservableList<Tasks> TasksList() {
 		ObservableList<Tasks> List = FXCollections.observableArrayList();
 		
-        String query = "SELECT * FROM tasks" ;
+        String query = "SELECT * FROM tasks WHERE userid = ?" ;
+        PreparedStatement st;
         ResultSet rs;
         
         try{
-			st = conn.createStatement();
-            rs = st.executeQuery(query);
+        	st=conn.prepareStatement(query);
+			st.setInt(1,UserService.getCurrentUserId());
+            rs = st.executeQuery();
+     
             Tasks task;
             while(rs.next()){
                 task = new Tasks(rs.getString("title"),rs.getString("description"),rs.getString("status"),rs.getString("deadline"),rs.getString("categorie"));
@@ -119,7 +130,7 @@ public class DaoImp implements Dao {
 		String deadline = task.getDeadline();
 		String categorie = task.getCategorie();
 		
-		String query = "INSERT INTO tasks(title,description,status,deadline,categorie) VALUES ('" +title + "','" + description + "','" + status + "','" + deadline + "','" + categorie + "')";
+		String query = "INSERT INTO tasks(title,description,status,deadline,categorie,userid) VALUES ('" +title + "','" + description + "','" + status + "','" + deadline + "','" + categorie +"',"+UserService.getCurrentUserId()+ ")";
 	       
 		try{
 			st = conn.createStatement();
@@ -133,14 +144,15 @@ public class DaoImp implements Dao {
 
 	@Override
 	public void update(Tasks task) {
+		String currentTitle = task.getCurrentTitle();
 		String title = task.getTitle();
 		String description = task.getDescription();
 		String status = task.getStatus();
 		String deadline = task.getDeadline();
 		String categorie = task.getCategorie();
 		
-		String query = "UPDATE  tasks SET title = '" +title + "',description='" + description + "',status='" + status + "',deadline='" + deadline + "',categorie='" + categorie + "' WHERE title =" + title;
-	       
+		String query = "UPDATE  tasks  SET title = '" +title + "',description='" + description + "',status='" + status + "',deadline='" + deadline + "',categorie='" + categorie + "' WHERE title ='" + currentTitle+"'";
+		//String query = "UPDATE  tasks SET description='" + description  + "' WHERE title ='" + title+"'";
 		try{
 			st = conn.createStatement();
 			st.executeUpdate(query);
@@ -153,7 +165,8 @@ public class DaoImp implements Dao {
 	
 	@Override
 	public void delete(String title) {
-        String query = "DELETE FROM tasks WHERE id =" + title ;
+		
+        String query = "DELETE FROM tasks WHERE title ='" + title +"'" ;
         
 		try{
 			st = conn.createStatement();

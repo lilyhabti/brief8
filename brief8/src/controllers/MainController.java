@@ -12,9 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -91,11 +93,18 @@ public class MainController {
     
     @FXML
     private RadioButton todo;
+    
+
+    @FXML
+    private TextArea currentTitle;
+    
 
 	DaoImp dao = new DaoImp();
 
 	@FXML
 	void initialize() {
+		
+		currentTitle.setEditable(false);
 
 		showTasks();
 		
@@ -135,8 +144,10 @@ public class MainController {
 
 	 @FXML
 	    void handleMouseAction(MouseEvent event) {
+		 
 			Tasks task = tvTasks.getSelectionModel().getSelectedItem();
 			
+			currentTitle.setText(task.getTitle());
 			tfTitle.setText(task.getTitle());
 			tfDescription.setText(task.getDescription());
 			
@@ -243,7 +254,7 @@ public class MainController {
 		dao.create(task);
 	}
 	public void updateTask() {
-
+        String currenttitle = currentTitle.getText();
 		String title = tfTitle.getText();
 		String description = tfDescription.getText();
 		String deadline = tfdeadline.getText();
@@ -281,7 +292,7 @@ public class MainController {
 			 categorie = "Other";
 		}
 
-		Tasks task = new Tasks(title, description, status, deadline,categorie);
+		Tasks task = new Tasks(currenttitle,title, description, status, deadline,categorie);
 		dao.update(task);
 	}
 }

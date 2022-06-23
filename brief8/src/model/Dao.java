@@ -8,7 +8,7 @@ public interface Dao {
 	
 	public void signUpUser(Users user);
 	
-	public ResultSet getUser(Users user);
+	public Users getUser(Users user);
 	
 	public ObservableList<Tasks> TasksList();
 	

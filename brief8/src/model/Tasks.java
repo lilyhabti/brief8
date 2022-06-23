@@ -1,6 +1,16 @@
 package model;
 
 public class Tasks {
+	
+	private String currentTitle;
+	public String getCurrentTitle() {
+		return currentTitle;
+	}
+
+	public void setCurrentTitle(String currentTitle) {
+		this.currentTitle = currentTitle;
+	}
+
 	private String title;
 	private String description;
 	private String status;
@@ -10,6 +20,17 @@ public class Tasks {
 	public Tasks() {}
 
 	public Tasks(String title, String description, String status, String deadline, String categorie) {
+		this.title = title;
+		this.description = description;
+		this.status = status;
+		this.deadline = deadline;
+		this.categorie = categorie;
+	}
+	
+    
+	public Tasks(String currentTitle, String title, String description, String status, String deadline,
+			String categorie) {
+		this.currentTitle = currentTitle;
 		this.title = title;
 		this.description = description;
 		this.status = status;

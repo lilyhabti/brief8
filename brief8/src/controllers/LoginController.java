@@ -20,80 +20,72 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.DaoImp;
 import model.Users;
+import service.UserService;
 
 public class LoginController {
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    @FXML
-    private Button btnLogIn;
+	@FXML
+	private Button btnLogIn;
 
-    @FXML
-    private Button btnSignUp;
+	@FXML
+	private Button btnSignUp;
 
-    @FXML
-    private PasswordField tfpassword;
+	@FXML
+	private PasswordField tfpassword;
 
-    @FXML
-    private TextField tfusername;
-    
-    
+	@FXML
+	private TextField tfusername;
 
-    @FXML
-    void initialize() {
-    	
-    	btnLogIn.setOnAction(event ->{
-    		DaoImp work = new DaoImp();
-        	
-        	String loginUser = tfusername.getText().trim(); 
-        	String loginPwd = tfpassword.getText().trim();
-        	
-        	Users user= new Users();
-        	user.setUsername(loginUser);
-        	user.setPassword(loginPwd);
-    		
-    		ResultSet userRow = work.getUser(user);
-    		
-    		int counter =0;
-    		
-    		try {
-				while(userRow.next()) {
-					counter++;
-				}
-				if(counter==1) {
-					showMain();
-				}else {
-						Shaker shaker= new Shaker(tfusername);
-						shaker.shake();
-						Shaker shaker1= new Shaker(tfpassword);
-						shaker1.shake();
-				}
-			} catch (SQLException e) {
+	@FXML
+	void initialize() {
+
+		btnLogIn.setOnAction(event -> {
+			DaoImp work = new DaoImp();
+
+			String loginUser = tfusername.getText().trim();
+			String loginPwd = tfpassword.getText().trim();
+
+			Users user = new Users();
+			user.setUsername(loginUser);
+			user.setPassword(loginPwd);
+
+			Users userRow = work.getUser(user);
+
+			if (userRow != null) {
+				UserService.setCurrentUserId(userRow.getId());
+				showMain();
+			} else {
+				Shaker shaker = new Shaker(tfusername);
+				shaker.shake();
+				Shaker shaker1 = new Shaker(tfpassword);
+				shaker1.shake();
+			}
+
+		});
+
+		btnSignUp.setOnAction(event -> {
+			Parent root;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/SignUp.fxml"));
+				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-    	});
-    	
-    	btnSignUp.setOnAction(event ->{
-    		Parent root;
-    		try {
-    			root = FXMLLoader.load(getClass().getResource("/view/SignUp.fxml"));
-    			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	        Scene scene= new Scene(root);
-    	        stage.setScene(scene);
-    	        stage.show();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	});
-    }
-    
-    private void showMain() {
-    	//take users to the addItem screen
-    	btnLogIn.getScene().getWindow().hide();
+		});
+	}
+
+	private void showMain() {
+		// take users to the addItem screen
+		btnLogIn.getScene().getWindow().hide();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/Space.fxml"));
 		try {
@@ -101,10 +93,10 @@ public class LoginController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Parent root =  loader.getRoot();
+		Parent root = loader.getRoot();
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle("2DO!!");
 		stage.showAndWait();
-    }
+	}
 }
