@@ -98,6 +98,19 @@ public class MainController {
 	void initialize() {
 
 		showTasks();
+		
+		ToggleGroup stat = new ToggleGroup();
+		todo.setToggleGroup(stat);
+		todo.setSelected(true);
+		doing.setToggleGroup(stat);
+		done.setToggleGroup(stat);
+		
+		ToggleGroup cat = new ToggleGroup();
+		presentation.setToggleGroup(cat);
+		presentation.setSelected(true);
+		research.setToggleGroup(cat);
+		standby.setToggleGroup(cat);
+		other.setToggleGroup(cat);
 
 		btnAdd.setOnAction(event -> {
 			addTask();
@@ -139,6 +152,7 @@ public class MainController {
 			research.setToggleGroup(cat);
 			standby.setToggleGroup(cat);
 			other.setToggleGroup(cat);
+			
 			if(task.getStatus().equals("To Do")) {
 				todo.setSelected(true);
 			}else if(task.getStatus().equals("Doing")) {
