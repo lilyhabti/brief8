@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -77,20 +78,16 @@ public class LoginController {
     	});
     	
     	btnSignUp.setOnAction(event ->{
-    		//take users to the sign up screen
-    		btnSignUp.getScene().getWindow().hide();
-    		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(getClass().getResource("/view/SignUp.fxml"));
+    		Parent root;
     		try {
-				loader.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    		Parent root =  loader.getRoot();
-    		Stage stage = new Stage();
-    		stage.setScene(new Scene(root));
-    		stage.setTitle("2DO!!");
-    		stage.showAndWait();
+    			root = FXMLLoader.load(getClass().getResource("/view/SignUp.fxml"));
+    			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    	        Scene scene= new Scene(root);
+    	        stage.setScene(scene);
+    	        stage.show();
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
     	});
     }
     

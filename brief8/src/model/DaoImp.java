@@ -92,6 +92,7 @@ public class DaoImp implements Dao {
 	@Override
 	public ObservableList<Tasks> TasksList() {
 		ObservableList<Tasks> List = FXCollections.observableArrayList();
+		
         String query = "SELECT * FROM tasks" ;
         ResultSet rs;
         
@@ -109,7 +110,59 @@ public class DaoImp implements Dao {
         }
         return List;
 	}
+
+	@Override
+	public void create(Tasks task) {
+		String title = task.getTitle();
+		String description = task.getDescription();
+		String status = task.getStatus();
+		String deadline = task.getDeadline();
+		String categorie = task.getCategorie();
+		
+		String query = "INSERT INTO tasks(title,description,status,deadline,categorie) VALUES ('" +title + "','" + description + "','" + status + "','" + deadline + "','" + categorie + "')";
+	       
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(query);
+			System.out.println("Creating is Done.");
+		}catch(Exception ex){
+            ex.printStackTrace();
+			System.out.println("Creating Did not go will.");
+        }
+	}
+
+	@Override
+	public void update(Tasks task) {
+		String title = task.getTitle();
+		String description = task.getDescription();
+		String status = task.getStatus();
+		String deadline = task.getDeadline();
+		String categorie = task.getCategorie();
+		
+		String query = "UPDATE  tasks SET title = '" +title + "',description='" + description + "',status='" + status + "',deadline='" + deadline + "',categorie='" + categorie + "' WHERE title =" + title;
+	       
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(query);
+			System.out.println("Updating is Done.");
+		}catch(Exception ex){
+            ex.printStackTrace();
+			System.out.println("Updating Did not go will.");
+        }
+	}
 	
-	
+	@Override
+	public void delete(String title) {
+        String query = "DELETE FROM tasks WHERE id =" + title ;
+        
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(query);
+			  System.out.println("Deleting is Done.");
+		}catch(Exception ex){
+            ex.printStackTrace();
+        }
+		
+	}
 
 }

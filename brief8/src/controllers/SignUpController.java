@@ -49,7 +49,7 @@ public class SignUpController {
     	
     	btnSignUp.setOnAction(event ->{
     		createUser();
-    		
+    		changeSignUpToMain(event);
     		
     	});
     	
@@ -69,24 +69,21 @@ public class SignUpController {
     	  Users user = new Users(firstname,lastname,username,password);
     	  
     	  work.signUpUser(user);
-    	  changeSignUpToMain();
+    	  
 
     }
     
-    public void changeSignUpToMain() {
-    	btnSignUp.getScene().getWindow().hide();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/Space.fxml"));
+    public void changeSignUpToMain(ActionEvent event) {
+    	Parent root;
 		try {
-			loader.load();
+			root = FXMLLoader.load(getClass().getResource("/view/Space.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+	        Scene scene= new Scene(root);
+	        stage.setScene(scene);
+	        stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Parent root =  loader.getRoot();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root));
-		stage.setTitle("2DO!!");
-		stage.showAndWait();
     }
     
     public void changeToLogin(ActionEvent event){
