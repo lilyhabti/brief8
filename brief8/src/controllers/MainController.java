@@ -95,17 +95,11 @@ public class MainController {
     private RadioButton todo;
     
 
-    @FXML
-    private TextArea currentTitle;
-    
-
 	DaoImp dao = new DaoImp();
 
 	@FXML
 	void initialize() {
 		
-		currentTitle.setEditable(false);
-
 		showTasks();
 		
 		ToggleGroup stat = new ToggleGroup();
@@ -126,11 +120,18 @@ public class MainController {
 			changeToSpace(event);
 			showTasks();
 		});
-
+		
 		btnUpdate.setOnAction(event -> {
-			updateTask();
-			changeToSpace(event);
-			showTasks();
+			Parent root;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/view/Update.fxml"));
+				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 		btnDelete.setOnAction(event ->{
 			dao.delete(tfTitle.getText());
@@ -140,14 +141,19 @@ public class MainController {
 		btnMySpace.setOnAction(event -> {
 			changeToSpace(event);
 		});
+
+//		btnUpdate.setOnAction(event -> {
+//			updateTask();
+//			changeToSpace(event);
+//			showTasks();
+//		});
+		
 	}
 
 	 @FXML
 	    void handleMouseAction(MouseEvent event) {
 		 
 			Tasks task = tvTasks.getSelectionModel().getSelectedItem();
-			
-			currentTitle.setText(task.getTitle());
 			tfTitle.setText(task.getTitle());
 			tfDescription.setText(task.getDescription());
 			
@@ -252,47 +258,5 @@ public class MainController {
 
 		Tasks task = new Tasks(title, description, status, deadline,categorie);
 		dao.create(task);
-	}
-	public void updateTask() {
-        String currenttitle = currentTitle.getText();
-		String title = tfTitle.getText();
-		String description = tfDescription.getText();
-		String deadline = tfdeadline.getText();
-		String status = null;
-		String categorie = null;
-		
-		ToggleGroup stat = new ToggleGroup();
-		todo.setToggleGroup(stat);
-		todo.setSelected(true);
-		doing.setToggleGroup(stat);
-		done.setToggleGroup(stat);
-		
-		ToggleGroup cat = new ToggleGroup();
-		presentation.setToggleGroup(cat);
-		presentation.setSelected(true);
-		research.setToggleGroup(cat);
-		standby.setToggleGroup(cat);
-		other.setToggleGroup(cat);
-		
-		if (todo.isSelected()) {
-			 status = "To Do";
-		} else if (doing.isSelected()) {
-			 status = "Doing";
-		} else if (done.isSelected()) {
-			 status = "Done";
-		}
-
-		if (presentation.isSelected()) {
-			 categorie = "Presentation";
-		} else if (research.isSelected()) {
-			 categorie = "Research";
-		} else if (standby.isSelected()) {
-			 categorie = "Standby";
-		}else if (other.isSelected()) {
-			 categorie = "Other";
-		}
-
-		Tasks task = new Tasks(currenttitle,title, description, status, deadline,categorie);
-		dao.update(task);
 	}
 }
