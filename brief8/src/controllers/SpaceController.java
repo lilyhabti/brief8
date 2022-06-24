@@ -57,6 +57,9 @@ public class SpaceController {
     
     @FXML
     void initialize() {
+    	 
+        showTasks();
+        
         btnLogOut.setOnAction(event ->{
         	change.changeToLogin(event);
         });
@@ -64,8 +67,7 @@ public class SpaceController {
         btnActions.setOnAction(event ->{
         	changeSpaceToMain(event);
         });
-        
-        showTasks();
+      
     }
     
    
@@ -96,24 +98,5 @@ public class SpaceController {
         
         tvTasks.setItems(list);
         
-    }
-    
-//    private void showMain() {
-//    	//take users to the addItem screen
-//    	btnActions.getScene().getWindow().hide();
-//		FXMLLoader loader = new FXMLLoader();
-//		loader.setLocation(getClass().getResource("/view/Main.fxml"));
-//		try {
-//			loader.load();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		Parent root =  loader.getRoot();
-//		Stage stage = new Stage();
-//		stage.setScene(new Scene(root));
-//		stage.setTitle("2DO!!");
-//		stage.showAndWait();
-//    }
-
-   
+    } 
 }

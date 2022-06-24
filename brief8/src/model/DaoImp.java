@@ -1,15 +1,22 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import controllers.LoginController;
+import controllers.SignUpController;
 import database.DBconnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import service.Tasks;
 import service.UserService;
 import service.Users;
@@ -21,8 +28,11 @@ public class DaoImp implements Dao {
 	Statement st;
 
 	@Override
-	public void signUpUser(Users user) {
+	public boolean signUpUser(Users user) {
 //		SignUpController change = new SignUpController();
+//		LoginController change = new LoginController();
+		
+		int container=0;
 		
 		PreparedStatement psInsert = null;
 		PreparedStatement psExists = null;
@@ -31,7 +41,7 @@ public class DaoImp implements Dao {
 		String lastname = user.getLastname();
 		String username = user.getUsername();
 		String password = user.getPassword();
-		//String insert ="INSERT INTO users(firstname,lastname,username,password) VALUES(?,?,?,?)";
+		
 		
 		try {
 			if(!firstname.equals("") && !lastname.equals("") && !username.equals("") && !password.equals("")) {
@@ -40,11 +50,13 @@ public class DaoImp implements Dao {
 				psExists.setString(1,user.getUsername());
 				resultset = psExists.executeQuery();
 				
+				
 				if(resultset.isBeforeFirst()) {
 					System.out.println("User already exists!!");
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Username Not valid!!");
 					alert.show();
+					
 				}else {
 					String query1 = "INSERT INTO users(firstname , lastname , username , password) VALUES (?,?,?,?)";
 					psInsert=conn.prepareStatement(query1);
@@ -53,7 +65,7 @@ public class DaoImp implements Dao {
 					psInsert.setString(3,username);
 					psInsert.setString(4,password);
 					psInsert.executeUpdate();
-					
+					container=1;
 				}
 			}else {
 				System.out.println("Fill in information!!");
@@ -64,6 +76,11 @@ public class DaoImp implements Dao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		if(container==1) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 

@@ -8,7 +8,7 @@ import service.Users;
 
 public interface Dao {
 	
-	public void signUpUser(Users user);
+	public boolean signUpUser(Users user);
 	
 	public Users getUser(Users user);
 	

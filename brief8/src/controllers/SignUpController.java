@@ -29,7 +29,7 @@ public class SignUpController {
     private Button btnLogIn;
 
     @FXML
-    private Button btnSignUp;
+	public Button btnSignUp;
 
     @FXML
     private PasswordField pfPassword;
@@ -48,8 +48,10 @@ public class SignUpController {
     void initialize() {
     	
     	btnSignUp.setOnAction(event ->{
-    		createUser();
-    		changeSignUpToMain(event);
+    		
+    		if(createUser()) {
+    			changeToLogin(event);
+    		}
     		
     	});
     	
@@ -58,9 +60,9 @@ public class SignUpController {
     	});
     }
     
-    public void createUser() {
+    public boolean createUser() {
     	  DaoImp work =new DaoImp();
-    	  
+    	  boolean value;
     	  String firstname = tfFirstName.getText();
     	  String lastname = tfSecondName.getText();
     	  String username = tfUsername.getText();
@@ -68,23 +70,16 @@ public class SignUpController {
     	  
     	  Users user = new Users(firstname,lastname,username,password);
     	  
-    	  work.signUpUser(user);
+    	  value = work.signUpUser(user);
     	  
+    	  if(value) {
+    		  return true;
+    	  }else {
+    		  return false;
+    	  }
 
     }
-    
-    public void changeSignUpToMain(ActionEvent event) {
-    	Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/Space.fxml"));
-			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-	        Scene scene= new Scene(root);
-	        stage.setScene(scene);
-	        stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
+   
     
     public void changeToLogin(ActionEvent event){
     	Parent root;
@@ -99,5 +94,21 @@ public class SignUpController {
 		}
         
     }
+//    public void showLogin() {
+//		// take users to the addItem screen
+//		btnSignUp.getScene().getWindow().hide();
+//		FXMLLoader loader = new FXMLLoader();
+//		loader.setLocation(getClass().getResource("/view/Login.fxml"));
+//		try {
+//			loader.load();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		Parent root = loader.getRoot();
+//		Stage stage = new Stage();
+//		stage.setScene(new Scene(root));
+//		stage.setTitle("2DO!!");
+//		stage.showAndWait();
+//	}
 
 }

@@ -83,7 +83,7 @@ public class LoginController {
 		});
 	}
 
-	private void showMain() {
+	public void showMain() {
 		// take users to the addItem screen
 		btnLogIn.getScene().getWindow().hide();
 		FXMLLoader loader = new FXMLLoader();
@@ -99,4 +99,6 @@ public class LoginController {
 		stage.setTitle("2DO!!");
 		stage.showAndWait();
 	}
+	
+
 }

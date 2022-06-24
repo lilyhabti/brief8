@@ -1,16 +1,8 @@
 package service;
 
 public class Users {
-	private int id;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	private int id;
 	private String firstname;
 	private String lastname;
 	private String username;
@@ -25,6 +17,14 @@ public class Users {
 		this.password = password;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getFirstname() {
 		return firstname;
 	}

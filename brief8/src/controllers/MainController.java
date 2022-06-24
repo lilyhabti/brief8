@@ -141,12 +141,6 @@ public class MainController {
 		btnMySpace.setOnAction(event -> {
 			changeToSpace(event);
 		});
-
-//		btnUpdate.setOnAction(event -> {
-//			updateTask();
-//			changeToSpace(event);
-//			showTasks();
-//		});
 		
 	}
 
@@ -163,13 +157,6 @@ public class MainController {
 			doing.setToggleGroup(stat);
 			done.setToggleGroup(stat);
 			
-			ToggleGroup cat = new ToggleGroup();
-			presentation.setToggleGroup(cat);
-			presentation.setSelected(true);
-			research.setToggleGroup(cat);
-			standby.setToggleGroup(cat);
-			other.setToggleGroup(cat);
-			
 			if(task.getStatus().equals("To Do")) {
 				todo.setSelected(true);
 			}else if(task.getStatus().equals("Doing")) {
@@ -177,8 +164,17 @@ public class MainController {
 			}else if(task.getStatus().equals("Done")) {
 				done.setSelected(true);
 			}
+			
 			colStatus.setText(task.getStatus());
 			tfdeadline.setText(task.getDeadline());
+			
+			ToggleGroup cat = new ToggleGroup();
+			presentation.setToggleGroup(cat);
+			presentation.setSelected(true);
+			research.setToggleGroup(cat);
+			standby.setToggleGroup(cat);
+			other.setToggleGroup(cat);
+			
 			if(task.getCategorie().equals("Presentation")) {
 				presentation.setSelected(true);
 			}else if(task.getCategorie().equals("Research")) {
